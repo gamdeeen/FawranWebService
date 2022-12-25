@@ -1,4 +1,4 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Models;
 
 public class User {
     String email;

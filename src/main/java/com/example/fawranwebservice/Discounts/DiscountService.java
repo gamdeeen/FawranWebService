@@ -1,4 +1,4 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Discounts;
 
 import org.springframework.stereotype.Service;
 

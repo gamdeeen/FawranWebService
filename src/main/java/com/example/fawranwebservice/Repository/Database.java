@@ -1,12 +1,14 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Repository;
 
 
+import com.example.fawranwebservice.Models.Admin;
+import com.example.fawranwebservice.Models.CreditCard;
+import com.example.fawranwebservice.Models.Customer;
+import com.example.fawranwebservice.Models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 public class Database {

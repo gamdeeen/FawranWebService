@@ -1,4 +1,4 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Services.Model;
 
 import java.util.Date;
 

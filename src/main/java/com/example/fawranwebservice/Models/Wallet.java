@@ -1,4 +1,4 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Models;
 
 import com.example.fawranwebservice.Payment.CreditCardPayment;
 

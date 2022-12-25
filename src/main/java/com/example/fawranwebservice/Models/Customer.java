@@ -1,6 +1,6 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Models;
 
-public class Customer extends User{
+public class Customer extends User {
     Wallet wallet;
     CreditCard creditCard;
     String first_name;

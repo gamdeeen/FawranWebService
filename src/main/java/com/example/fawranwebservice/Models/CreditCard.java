@@ -1,4 +1,4 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Models;
 
 public class CreditCard {
     String creditCardNumber;

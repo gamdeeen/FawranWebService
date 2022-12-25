@@ -1,4 +1,4 @@
-package com.example.fawranwebservice;
+package com.example.fawranwebservice.Models;
 
 public class Admin extends User {
     public Admin(String email, String password){

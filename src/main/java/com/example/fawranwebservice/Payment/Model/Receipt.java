@@ -1,6 +1,7 @@
-package com.example.fawranwebservice.Payment;
+package com.example.fawranwebservice.Payment.Model;
 
-import com.example.fawranwebservice.ServiceEntity;
+import com.example.fawranwebservice.Payment.IPayment;
+import com.example.fawranwebservice.Services.Model.ServiceEntity;
 
 import java.util.Calendar;
 
@@ -9,7 +10,7 @@ public class Receipt {
     int serviceID;
     double cost;
     IPayment payment;
-    boolean done;
+    public boolean done;
     String address ="";
 
     Calendar date;

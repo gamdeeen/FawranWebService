@@ -1,6 +1,8 @@
 package com.example.fawranwebservice.Payment;
 
-import com.example.fawranwebservice.*;
+import com.example.fawranwebservice.Models.Response;
+import com.example.fawranwebservice.Models.User;
+import com.example.fawranwebservice.Payment.Model.Receipt;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
