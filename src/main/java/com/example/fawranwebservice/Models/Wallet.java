@@ -5,6 +5,13 @@ import com.example.fawranwebservice.Payment.CreditCardPayment;
 public class Wallet {
     double credit = 100;
 
+    Wallet(){
+        credit = 100;
+    }
+    Wallet(double credit){
+        this.credit = credit;
+    }
+
     public void setCredit(double cre){
         credit = cre;
     }

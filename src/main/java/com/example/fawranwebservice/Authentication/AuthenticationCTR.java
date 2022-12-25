@@ -26,7 +26,7 @@ public class AuthenticationCTR {
 
 
     @PostMapping("/Register")
-    public Response register(Customer customer){
+    public Response register(@RequestBody Customer customer){
         if(authentication.register(customer)){
             return new Response(true, "Register Successfully", customer);
         }
