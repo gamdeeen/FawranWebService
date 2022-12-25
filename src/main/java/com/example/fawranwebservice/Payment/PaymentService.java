@@ -16,6 +16,10 @@ public class PaymentService {
         this.authentication = authentication;
     }
 
+    User getCurrentUser(){
+        return authentication.getCurrent_user();
+    }
+
 
     public Receipt pay(int choice){
         factoryPayment(choice);

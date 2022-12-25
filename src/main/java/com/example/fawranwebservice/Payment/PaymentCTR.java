@@ -1,6 +1,6 @@
 package com.example.fawranwebservice.Payment;
 
-import com.example.fawranwebservice.Response;
+import com.example.fawranwebservice.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +28,11 @@ public class PaymentCTR {
             response.setMessage("TRY AGAIN");
         return response;
     }
+
+    @GetMapping
+    public User get(){
+        return paymentservice.getCurrentUser();
+    }
+
 
 }
