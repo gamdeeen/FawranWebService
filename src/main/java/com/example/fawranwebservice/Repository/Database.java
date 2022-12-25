@@ -5,14 +5,16 @@ import com.example.fawranwebservice.Models.Admin;
 import com.example.fawranwebservice.Models.CreditCard;
 import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Models.User;
+import com.example.fawranwebservice.Services.Factories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 @Service
 public class Database {
-    Map<String, User> registered_user = new HashMap<>() {{
+    private Map<String, User> registered_user = new HashMap<>() {{
         this.put("1", new Customer("NUMBER", "ONE", "1", "1", "1", new CreditCard()));
         this.put("customer", new Customer("NUMBER", "ONE", "1", "1", "customer", new CreditCard()));
         this.put("diaa@gmail.com", new Customer("zeyad", "diaa", "maadi", "diaa@gmail.com", "123456", new CreditCard()));
@@ -21,6 +23,51 @@ public class Database {
         this.put("YAHIA_EL_HADIDI@gmail.com", new Admin("YAHIA_EL_HADIDI@gmail.com", "321"));
         this.put("admin", new Admin("admin", "admin"));
     }};
+    private HashMap<String, ServiceFactory> servicesFactory = new HashMap<>() {{
+        this.put("Mobile Recharge", new MobileRechargeFactory());
+        this.put("Internet Payment", new InternetPaymentFactory());
+        this.put("Landline Payment", new LandlinePaymentFactory());
+        this.put("Donations", new DonationsFactory());
+    }};
+    private HashMap<String, LinkedList<String>> serviceProviders = new HashMap<>() {{
+        this.put("Mobile Recharge",
+                new LinkedList<>() {{
+                    this.add("Vodafone");
+                    this.add("Orange");
+                    this.add("Etisalat");
+                    this.add("We");
+                }}
+        );
+        this.put("Internet Payment",
+                new LinkedList<>() {{
+                    this.add("Vodafone");
+                    this.add("Orange");
+                    this.add("Etisalat");
+                    this.add("We");
+                }}
+        );
+        this.put("Landline Payment",
+                new LinkedList<>() {{
+                    this.add("Monthly receipt");
+                    this.add("Quarterly receipt");
+                }}
+        );
+        this.put("Donations",
+                new LinkedList<>() {{
+                    this.add("Cancer Hospital");
+                    this.add("Schools");
+                    this.add("NGO");
+                }}
+        );
+    }};
+
+    public LinkedList<String> getAllServiceProviders(String service) {
+        return serviceProviders.get(service);
+    }
+
+    public LinkedList<String> getAllServices() {
+        return new LinkedList<>(servicesFactory.keySet());
+    }
 
     public User searchRegistered_user(String email, String password) {
         User user = registered_user.get(email);
@@ -45,6 +92,10 @@ public class Database {
 
     public void add_Customer(Customer customer) {
         registered_user.put(customer.getEmail(), customer);
+    }
+
+    public ServiceFactory getServiceFactory(String srvc) {
+        return servicesFactory.get(srvc);
     }
 
     //      HashMap<String, LinkedList<String>> serviceProviders =new HashMap<>(){{

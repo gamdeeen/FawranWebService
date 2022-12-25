@@ -1,18 +1,19 @@
-package com.example.fawranwebservice.Services.Model;
+package com.example.fawranwebservice.Services;
+
+import com.example.fawranwebservice.Services.Forms.Form;
 
 import java.util.Date;
 
-public class ServiceEntity {
-
+public abstract class ServiceEntity {
     protected String provider;
     protected String name;
     protected Date date;
     protected double payment;
     protected int ID;
 
-    ServiceEntity(String provider,String serviceName) {
+    ServiceEntity(String provider, String serviceName) {
         this.setName(serviceName);
-        this.provider = provider;
+        this.setProvider(provider);
     }
 
     ServiceEntity(ServiceEntity service) {
@@ -23,13 +24,13 @@ public class ServiceEntity {
         this.setID(service.getID());
     }
 
-//    public void fillService(Form form) {
-//        setDate(form.getDate());
-//        setPayment(form.getPayment());
-//        TakeExtra(form);
-//    }
+    public void fillService(Form form) {
+        setDate(form.getDate());
+        setPayment(form.getPayment());
+        takeExtra(form);
+    }
 
-//    public abstract void TakeExtra(Form form);
+    protected abstract void takeExtra(Form form);
 
     public String getProvider() {
         return provider;
@@ -70,4 +71,5 @@ public class ServiceEntity {
     public void setName(String name) {
         this.name = name;
     }
+
 }

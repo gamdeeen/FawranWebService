@@ -5,7 +5,7 @@ import com.example.fawranwebservice.Discounts.DiscountService;
 import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Models.User;
 import com.example.fawranwebservice.Payment.Model.Receipt;
-import com.example.fawranwebservice.Services.Model.ServiceEntity;
+import com.example.fawranwebservice.Services.ServiceEntity;
 import com.example.fawranwebservice.Services.ServiceService;
 import org.springframework.stereotype.Service;
 

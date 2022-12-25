@@ -1,7 +1,7 @@
 package com.example.fawranwebservice.Payment;
 
 import com.example.fawranwebservice.Payment.Model.Receipt;
-import com.example.fawranwebservice.Services.Model.ServiceEntity;
+import com.example.fawranwebservice.Services.ServiceEntity;
 
 public class WalletPayment extends IPayment {
     @Override
