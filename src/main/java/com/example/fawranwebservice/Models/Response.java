@@ -10,6 +10,23 @@ public class Response<T> {
 	private String message;
 	private T object;
 
+	public Response(boolean status) {
+		this.status = status;
+	}
+	public Response(boolean status, String message) {
+		this.status = status;
+		this.message = message;
+	}
+	public Response(boolean status, T object) {
+		this.status = status;
+		this.object = object;
+	}
+	public Response(boolean status, String message, T object) {
+		this.status = status;
+		this.object = object;
+		this.message = message;
+	}
+
 	public boolean isStatus() {
 		return status;
 	}

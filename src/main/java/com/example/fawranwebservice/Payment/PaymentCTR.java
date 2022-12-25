@@ -21,9 +21,7 @@ public class PaymentCTR {
     @PostMapping("/{choice}")
     public Response pay(@PathVariable("choice") int choice) {
         Receipt receipt = paymentservice.pay(choice);
-        Response response = new Response();
-        response.setStatus(receipt.done);
-        response.setObject(receipt);
+        Response response = new Response(receipt.done,receipt);
         if(receipt.done)
             response.setMessage("PAYMENT IS DONE successfully");
         else
@@ -31,6 +29,7 @@ public class PaymentCTR {
         return response;
     }
 
+    // for check only
     @GetMapping
     public User get(){
         return paymentservice.getCurrentUser();

@@ -18,15 +18,19 @@ public class AuthenticationCTR {
 
     @PostMapping("/Login")
     public Response login(@RequestBody User user){
-        authentication.login(user);
-        return null;
+        if(authentication.login(user)){
+            return new Response(true, "Login Successfully", user);
+        }
+        return new Response(false, "Login Unsuccessfully");
     }
 
 
     @PostMapping("/Register")
     public Response register(Customer customer){
-        authentication.register(customer);
-        return null;
+        if(authentication.register(customer)){
+            return new Response(true, "Register Successfully", customer);
+        }
+        return new Response(false, "Register Unsuccessfully");
     }
 
 

@@ -21,7 +21,7 @@ public class PaymentService {
         this.service = service;
         this.authentication = authentication;
     }
-
+    // for check only
     User getCurrentUser(){
         return authentication.getCurrent_user();
     }
