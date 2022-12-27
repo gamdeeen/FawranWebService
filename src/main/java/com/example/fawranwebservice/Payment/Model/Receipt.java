@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 public class Receipt {
     String serviceAndProvider;
+    static int IDgenerator = 0;
     int serviceID;
     double cost;
     // change to String gamed check
@@ -19,7 +20,7 @@ public class Receipt {
 
     public Receipt(ServiceEntity service, IPayment payment, double cost, boolean status){
         serviceAndProvider=service.getClass().getSimpleName()+" "+service.getProvider();
-        serviceID=service.getID();
+        serviceID = ++IDgenerator;
         this.payment = payment;
         this.cost = cost;
         done = status;
