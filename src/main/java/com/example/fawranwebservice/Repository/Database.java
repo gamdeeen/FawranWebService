@@ -6,6 +6,7 @@ import com.example.fawranwebservice.Models.Admin;
 import com.example.fawranwebservice.Models.CreditCard;
 import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Models.User;
+import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Services.Factories.*;
 import org.springframework.stereotype.Service;
 
@@ -166,14 +167,14 @@ public class Database {
 //        Discounts.get(service).remove(index);
 //    }
 //
-//     Map<String, LinkedList<Receipt>> transactions = new HashMap<>(){{
-//        this.put("diaa@gmail.com",new LinkedList<>());
-//        this.put("yaya@gmail.com",new LinkedList<>());
-//        this.put("joe@gmail.com",new LinkedList<>());
-//        this.put("YAHIA_EL_HADIDI@gmail.com",new LinkedList<>());
-//    }};
-//
-//     Map<String, LinkedList<Receipt>> requests = new HashMap<>();
+     public Map<String, LinkedList<Receipt>> transactions = new HashMap<>(){{
+        this.put("diaa@gmail.com",new LinkedList<>());
+        this.put("yaya@gmail.com",new LinkedList<>());
+        this.put("joe@gmail.com",new LinkedList<>());
+        this.put("YAHIA_EL_HADIDI@gmail.com",new LinkedList<>());
+    }};
+
+     public Map<String, LinkedList<Receipt>> requests = new HashMap<>();
 //    public  LinkedList<String> getAllServices(){
 //        return new LinkedList<>(servicesFactory.keySet());
 //    }
@@ -194,54 +195,54 @@ public class Database {
 
 //
 
-//
-//    protected boolean checkRequests(String email) {
-//        return requests.containsKey(email);
-//    }
-//
-//    protected boolean checkTransactions(String email) {
-//        return transactions.containsKey(email);
-//    }
-//
-//    public void addRequest(String email, Receipt receipt) {
-//        if (!checkRequests(email)) {
-//            LinkedList<Receipt> listOfReceipts = new LinkedList<>();
-//            listOfReceipts.add(receipt);
-//            requests.put(email, listOfReceipts);
-//        } else {
-//            requests.get(email).add(receipt);
-//        }
-//    }
-//
-//    public void addTransaction(String email, Receipt receipt) {
-//        if (!checkTransactions(email)) {
-//            LinkedList<Receipt> listOfReceipts = new LinkedList<>();
-//            listOfReceipts.add(receipt);
-//            transactions.put(email, listOfReceipts);
-//        } else {
-//            transactions.get(email).add(receipt);
-//        }
-//    }
-//
-//    public Set<String> getRequestsEmails() {
-//        return requests.keySet();
-//    }
-//
-//    public LinkedList<Receipt> getRequestsReceipts(String email) {
-//        return requests.get(email);
-//    }
-//
-//    public LinkedList<Receipt> getTransactionsReceipts(String email) {
-//        return transactions.get(email);
-//    }
-//
-//    public void deleteRequest(String email, int index) {
-//        requests.get(email).remove(index);
-//    }
-//
-//    public void deleteTransaction(String email, int index) {
-//        transactions.get(email).remove(index);
-//    }
+
+    protected boolean checkRequests(String email) {
+        return requests.containsKey(email);
+    }
+
+    protected boolean checkTransactions(String email) {
+        return transactions.containsKey(email);
+    }
+
+    public void addRequest(String email, Receipt receipt) {
+        if (!checkRequests(email)) {
+            LinkedList<Receipt> listOfReceipts = new LinkedList<>();
+            listOfReceipts.add(receipt);
+            requests.put(email, listOfReceipts);
+        } else {
+            requests.get(email).add(receipt);
+        }
+    }
+
+    public void addTransaction(String email, Receipt receipt) {
+        if (!checkTransactions(email)) {
+            LinkedList<Receipt> listOfReceipts = new LinkedList<>();
+            listOfReceipts.add(receipt);
+            transactions.put(email, listOfReceipts);
+        } else {
+            transactions.get(email).add(receipt);
+        }
+    }
+
+    public Set<String> getRequestsEmails() {
+        return requests.keySet();
+    }
+
+    public LinkedList<Receipt> getRequestsReceipts(String email) {
+        return requests.get(email);
+    }
+
+    public LinkedList<Receipt> getTransactionsReceipts(String email) {
+        return transactions.get(email);
+    }
+
+    public void deleteRequest(String email, int index) {
+        requests.get(email).remove(index);
+    }
+
+    public void deleteTransaction(String email, int index) {
+        transactions.get(email).remove(index);
+    }
 //
 //    public void addServiceProvider(String service, String service_provider) {
 //        serviceProviders.get(service).add(service_provider);

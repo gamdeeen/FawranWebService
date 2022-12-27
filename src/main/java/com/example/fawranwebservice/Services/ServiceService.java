@@ -30,9 +30,9 @@ public class ServiceService {
         return currentService;
     }
 
-    public void addTransaction(Receipt receipt) {
-
-    }
+//    public void addTransaction(Receipt receipt) {
+//        database.addTransaction(authenticationService.getCurrent_user().getEmail(),receipt);
+//    }
 
     public LinkedList<String> getAllServices() {
         return database.getAllServices();

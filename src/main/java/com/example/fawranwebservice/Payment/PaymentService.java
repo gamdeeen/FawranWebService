@@ -46,7 +46,8 @@ public class PaymentService {
         payment.setCustomer((Customer)authentication.getCurrent_user());
         Receipt receipt = payment.pay(service_entity,discount_amount);
 //        ReceiptForm receiptFormGui = new ReceiptForm(receipt);
-        service.addTransaction(receipt);
+//        service.addTransaction(receipt);
+        database.addTransaction(authentication.getCurrent_user().getEmail(),receipt);
 
 
         return receipt;
