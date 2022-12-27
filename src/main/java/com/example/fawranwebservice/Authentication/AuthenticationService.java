@@ -14,9 +14,9 @@ public class AuthenticationService {
         this.database = database;
     }
 
-    public boolean login(User user){
+    public User login(User user){
         current_user = database.searchRegistered_user(user.getEmail(), user.getPassword());
-        return current_user != null;
+        return current_user;
     }
     public void logout(){
         current_user=null;

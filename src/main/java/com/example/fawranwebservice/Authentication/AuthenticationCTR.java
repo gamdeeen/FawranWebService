@@ -21,7 +21,8 @@ public class AuthenticationCTR {
 
     @PostMapping("/Login")
     public Response login(@RequestBody User user){
-        if(authentication.login(user)){
+        user = authentication.login(user);
+        if(user != null){
             return new Response(true, "Login Successfully", user);
         }
         return new Response(false, "Login Unsuccessfully");

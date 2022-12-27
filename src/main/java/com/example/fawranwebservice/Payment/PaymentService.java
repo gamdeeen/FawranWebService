@@ -1,13 +1,18 @@
 package com.example.fawranwebservice.Payment;
 
 import com.example.fawranwebservice.Authentication.AuthenticationService;
+import com.example.fawranwebservice.Discounts.Discount;
 import com.example.fawranwebservice.Discounts.DiscountService;
 import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Models.User;
 import com.example.fawranwebservice.Payment.Model.Receipt;
+import com.example.fawranwebservice.Repository.Database;
 import com.example.fawranwebservice.Services.ServiceEntity;
 import com.example.fawranwebservice.Services.ServiceService;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.LinkedList;
 
 @Service
 public class PaymentService {
@@ -15,16 +20,22 @@ public class PaymentService {
     final ServiceService service;
     final DiscountService discountService;
     final AuthenticationService authentication;
+    Database database;
 
-    PaymentService(DiscountService discountService, ServiceService service, AuthenticationService authentication){
+    PaymentService(Database database,DiscountService discountService, ServiceService service, AuthenticationService authentication){
         this.discountService = discountService;
         this.service = service;
         this.authentication = authentication;
+        this.database = database;
     }
     // for check only
-    User getCurrentUser(){
-        return authentication.getCurrent_user();
+//    User getCurrentUser(){
+//        return authentication.getCurrent_user();
+//    }
+    HashMap<String, LinkedList<Discount>> getDiscount(){
+        return database.getAllDiscounts();
     }
+
 
 
     public Receipt pay(int choice){
@@ -42,10 +53,10 @@ public class PaymentService {
     }
 
     public void factoryPayment(int choice) {
-//        if (choice == 1)
-//            payment = new WalletPayment();
+        if (choice == 1)
+            payment = new WalletPayment();
 
-        if (choice == 2)
+        else if (choice == 2)
             payment = new CreditCardPayment();
 
         else if (choice == 3)

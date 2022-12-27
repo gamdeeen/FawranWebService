@@ -9,6 +9,7 @@ public class Receipt {
     String serviceAndProvider;
     int serviceID;
     double cost;
+    // change to String gamed check
     IPayment payment;
     public boolean done;
     String address ="";

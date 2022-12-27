@@ -1,6 +1,7 @@
 package com.example.fawranwebservice.Repository;
 
 
+import com.example.fawranwebservice.Discounts.Discount;
 import com.example.fawranwebservice.Models.Admin;
 import com.example.fawranwebservice.Models.CreditCard;
 import com.example.fawranwebservice.Models.Customer;
@@ -8,9 +9,7 @@ import com.example.fawranwebservice.Models.User;
 import com.example.fawranwebservice.Services.Factories.*;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class Database {
@@ -135,12 +134,37 @@ public class Database {
 //        this.put("Landline Payment", new LandlinePaymentFactory());
 //        this.put("Donations", new DonationsFactory());
 //    }};
-//    public  HashMap<String, LinkedList<Discount>> Discounts = new HashMap<>() {{
-//        this.put("Mobile Recharge", new LinkedList<>());
-//        this.put("Internet Payment", new LinkedList<>());
-//        this.put("Landline Payment", new LinkedList<>());
-//        this.put("Donations", new LinkedList<>());
-//    }};
+    public  HashMap<String, LinkedList<Discount>> Discounts = new HashMap<>() {{
+        this.put("Mobile Recharge", new LinkedList<>());
+        this.put("Internet Payment", new LinkedList<>());
+        this.put("Landline Payment", new LinkedList<>());
+        this.put("Donations", new LinkedList<>());
+    }};
+
+    public LinkedList<Discount> getDiscounts(String service) {
+        return Discounts.get(service);
+    }
+    public HashMap<String, LinkedList<Discount>> getAllDiscounts() {
+        return Discounts;
+    }
+    public void addOverAll(Discount discount) {
+        Discounts.forEach((key, value) -> value.add(discount));
+    }
+    public void addSpecific(Discount discount, String service) {
+        Discounts.get(service).add(discount);
+    }
+    public void removeDiscount(String description){
+        for (Map.Entry<String, LinkedList<Discount>> entry : Discounts.entrySet()) {
+            entry.getValue().removeIf(discount -> description.equals(discount.getDescription()));
+        }
+    }
+    public void removeDiscount(String service, int index) {
+        Discounts.get(service).remove(index);
+    }
+
+    //    public void removeDiscount(String service, int index) {
+//        Discounts.get(service).remove(index);
+//    }
 //
 //     Map<String, LinkedList<Receipt>> transactions = new HashMap<>(){{
 //        this.put("diaa@gmail.com",new LinkedList<>());
@@ -163,21 +187,13 @@ public class Database {
 //        return servicesFactory.get(service);
 //    }
 //
-//    public LinkedList<Discount> getDiscounts(String service) {
-//        return Discounts.get(service);
-//    }
+
 //
-//    public void addOverall(Discount discount) {
-//        Discounts.forEach((key, value) -> value.add(discount));
-//    }
+
 //
-//    public void addSpecific(Discount discount, String service) {
-//        Discounts.get(service).add(discount);
-//    }
+
 //
-//    public void removeDiscount(String service, int index) {
-//        Discounts.get(service).remove(index);
-//    }
+
 //
 //    protected boolean checkRequests(String email) {
 //        return requests.containsKey(email);
