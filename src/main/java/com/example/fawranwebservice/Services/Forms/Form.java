@@ -2,18 +2,16 @@ package com.example.fawranwebservice.Services.Forms;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Form {
     String provider;
     Date date;
-    Double payment;
-    Scanner input;
-    int choice;
+    double payment;
 
     public Form(String provider) {
         this.provider = provider;
-        input = new Scanner(System.in);
+    //    date=new Date();
+     //   payment=0.0;
     }
 
     protected void Header(Map<String, String> payload){}

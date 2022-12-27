@@ -4,11 +4,11 @@
  */
 package com.example.fawranwebservice.Models;
 
-public class Response<T> {
+public class Response {
 
 	private boolean status;
 	private String message;
-	private T object;
+	private Object object;
 
 	public Response(boolean status) {
 		this.status = status;
@@ -17,11 +17,11 @@ public class Response<T> {
 		this.status = status;
 		this.message = message;
 	}
-	public Response(boolean status, T object) {
+	public Response(boolean status, Object object) {
 		this.status = status;
 		this.object = object;
 	}
-	public Response(boolean status, String message, T object) {
+	public Response(boolean status, String message, Object object) {
 		this.status = status;
 		this.object = object;
 		this.message = message;
@@ -43,12 +43,12 @@ public class Response<T> {
 		this.message = message;
 	}
 
-	public void setObject(T object) {
+	public void setObject(Object object) {
 		this.object = object;
 
 	}
 
-	public T getObject() {
+	public Object getObject() {
 		return object;
 	}
 }
