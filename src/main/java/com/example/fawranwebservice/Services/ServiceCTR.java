@@ -58,13 +58,14 @@ public class ServiceCTR {
     @PostMapping("/submit")
     public Response submitForm(@RequestBody Map<String, String> payload) {
         if (service.checkCustomer())
-            return new Response(true, "Form Submitted Successfully", service.submitForm(payload));
+            return new Response(true,
+                    "Form Submitted Successfully", service.submitForm(payload));
 
         return FailedRequest();
     }
-
     private Response FailedRequest() {
-        return new Response(false, "Log in to Complete you service.", null);
+        return new Response(false,
+                "Log in to Complete you service.", null);
     }
 }
 

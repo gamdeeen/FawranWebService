@@ -31,7 +31,10 @@ public class ServiceService {
     }
 
     public void addTransaction(Receipt receipt) {
-
+        if(checkCustomer()) {
+            String customer = authenticationService.getCurrent_user().getEmail();
+            database.addTransaction(customer, receipt);
+        }
     }
 
     public LinkedList<String> getAllServices() {
@@ -54,12 +57,12 @@ public class ServiceService {
     }
 
     public LinkedList<String> getAllServiceProviders(String service) {
-        return database.getAllServiceProviders(service);
+        return database.getServiceProviders(service);
     }
 
     public LinkedList<String> searchServiceProviders(String srvc, String query) {
         LinkedList<String> matchingKeys = new LinkedList<>();
-        for (String key : database.getAllServiceProviders(srvc)) {
+        for (String key : database.getServiceProviders(srvc)) {
             if (key.contains(query)) {
                 matchingKeys.add(key);
             }
@@ -83,4 +86,5 @@ public class ServiceService {
         fillService(payload);
         return currentService;
     }
+
 }
