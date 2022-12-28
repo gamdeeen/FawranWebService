@@ -1,5 +1,6 @@
 package com.example.fawranwebservice.Discounts;
 
+import com.example.fawranwebservice.Authentication.AuthenticationService;
 import com.example.fawranwebservice.Repository.Database;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +10,11 @@ import java.util.*;
 public class DiscountService {
 
     Database database;
+    AuthenticationService authentication;
 
-    public DiscountService(Database database) {
+    public DiscountService(Database database,AuthenticationService authentication)
+    {
+        this.authentication = authentication;
         this.database = database;
     }
 
@@ -50,4 +54,9 @@ public class DiscountService {
     public void deleteDiscount(String discountDescription) {
         database.removeDiscount(discountDescription);
     }
+
+    public boolean checkAdmin(){
+        return authentication.checkAdmin();
+    }
+
 }

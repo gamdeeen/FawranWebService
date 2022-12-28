@@ -1,5 +1,6 @@
 package com.example.fawranwebservice.Authentication;
 
+import com.example.fawranwebservice.Models.Admin;
 import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Models.User;
 import com.example.fawranwebservice.Repository.Database;
@@ -29,6 +30,10 @@ public class AuthenticationService {
         }
         return false;
 
+    }
+
+    public boolean checkAdmin(){
+        return current_user instanceof Admin;
     }
 
     public User getCurrent_user() {

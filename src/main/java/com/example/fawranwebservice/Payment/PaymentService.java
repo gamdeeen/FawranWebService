@@ -5,6 +5,7 @@ import com.example.fawranwebservice.Discounts.Discount;
 import com.example.fawranwebservice.Discounts.DiscountService;
 import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Models.User;
+import com.example.fawranwebservice.Models.Wallet;
 import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Repository.Database;
 import com.example.fawranwebservice.Services.ServiceEntity;
@@ -39,16 +40,16 @@ public class PaymentService {
 
 
     public Receipt pay(int choice){
-        factoryPayment(choice);
+        if(authentication.checkAdmin())
+            return null;
 
+        factoryPayment(choice);
         ServiceEntity service_entity = service.getCurrentService();
         double discount_amount = discountService.getTotaldDiscount(service_entity.getName());
         payment.setCustomer((Customer)authentication.getCurrent_user());
         Receipt receipt = payment.pay(service_entity,discount_amount);
-//        ReceiptForm receiptFormGui = new ReceiptForm(receipt);
-//        service.addTransaction(receipt);
-        database.addTransaction(authentication.getCurrent_user().getEmail(),receipt);
-
+        if(receipt.done)
+            database.addTransaction(authentication.getCurrent_user().getEmail(),receipt);
 
         return receipt;
     }
@@ -63,4 +64,22 @@ public class PaymentService {
         else if (choice == 3)
             payment = new CashPayment();
     }
+
+    public double addCredit(double credit) {
+        if(authentication.checkAdmin())
+            return -1;
+        CreditCardPayment creditCardPayment = new CreditCardPayment();
+        Customer customer =(Customer)authentication.getCurrent_user();
+        Wallet wallet = customer.getWallet();
+        if(creditCardPayment.addToWallet(credit,customer)){
+            increaseCredit(credit,wallet);
+            database.addWalletTransaction(customer.getEmail(),credit);
+        }
+        return wallet.getCredit();
+    }
+
+    public static void increaseCredit(double credit,Wallet wallet){
+        wallet.setCredit(credit + wallet.getCredit());
+    }
+
 }

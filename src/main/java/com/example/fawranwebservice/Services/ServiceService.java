@@ -49,8 +49,7 @@ public class ServiceService {
     }
 
     public boolean checkCustomer() {
-        User user = authenticationService.getCurrent_user();
-        return user instanceof Customer;
+        return !(authenticationService.checkAdmin());
     }
 
     public LinkedList<String> getAllServiceProviders(String service) {
@@ -82,5 +81,11 @@ public class ServiceService {
     public ServiceEntity submitForm(Map<String, String> payload) {
         fillService(payload);
         return currentService;
+    }
+
+    public void addServiceProvider(Map<String, String> newProvider) {
+        String serviceName = newProvider.get("service");
+        String providerName = newProvider.get("provider");
+        database.addServiceProvider(serviceName,providerName);
     }
 }

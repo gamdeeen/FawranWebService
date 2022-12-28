@@ -1,6 +1,7 @@
 package com.example.fawranwebservice.Payment;
 
 import com.example.fawranwebservice.Models.CreditCard;
+import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Services.ServiceEntity;
 
@@ -13,9 +14,9 @@ public class CreditCardPayment extends IPayment {
         double amount = getServiceCost(service,discount);
 
         if(completePayment(creditCard,amount))
-            return new Receipt(service,this,amount,true);
+            return new Receipt(service,this.getClass().getSimpleName(),amount,true,customer);
 
-        return new Receipt(service,this,amount,false);
+        return new Receipt(service,this.getClass().getSimpleName(),amount,false,customer);
 
     }
     public boolean completePayment(CreditCard creditCard,double payment){
@@ -26,9 +27,8 @@ public class CreditCardPayment extends IPayment {
         */
         return creditCard!=null;
     }
-    public boolean addToWallet(double amount){
-        CreditCard creditCard = customer.getCreditCard();
-
+    public boolean addToWallet(double amount, Customer cust){
+        CreditCard creditCard = cust.getCreditCard();
         return completePayment(creditCard,amount);
     }
 }

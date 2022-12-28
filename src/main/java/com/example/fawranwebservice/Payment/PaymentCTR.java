@@ -22,16 +22,28 @@ public class PaymentCTR {
         this.paymentservice = paymentservice;
     }
 
-    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/{choice}")
     public Response pay(@PathVariable("choice") int choice) {
         Receipt receipt = paymentservice.pay(choice);
+        if(receipt == null) {
+            return new Response(false,"YOU ARE NOT A CUSTOMER");
+        }
         Response response = new Response(receipt.done, receipt);
+
         if (receipt.done)
             response.setMessage("PAYMENT IS DONE successfully");
         else
             response.setMessage("TRY AGAIN");
         return response;
+    }
+
+    @PutMapping("/{credit}")
+    public Response addCredit(@PathVariable("credit") double credit){
+        credit = paymentservice.addCredit(credit);
+        if(credit == -1) {
+            return new Response(false,"YOU ARE NOT A CUSTOMER");
+        }
+        return new Response(true,"Credit Added to wallet successfully",credit);
     }
 
     // for check only
