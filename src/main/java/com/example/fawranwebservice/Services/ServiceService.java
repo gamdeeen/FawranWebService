@@ -30,12 +30,9 @@ public class ServiceService {
         return currentService;
     }
 
-    public void addTransaction(Receipt receipt) {
-        if(checkCustomer()) {
-            String customer = authenticationService.getCurrent_user().getEmail();
-            database.addTransaction(customer, receipt);
-        }
-    }
+//    public void addTransaction(Receipt receipt) {
+//        database.addTransaction(authenticationService.getCurrent_user().getEmail(),receipt);
+//    }
 
     public LinkedList<String> getAllServices() {
         return database.getAllServices();
@@ -52,17 +49,16 @@ public class ServiceService {
     }
 
     public boolean checkCustomer() {
-        User user = authenticationService.getCurrent_user();
-        return user instanceof Customer;
+        return !(authenticationService.checkAdmin());
     }
 
     public LinkedList<String> getAllServiceProviders(String service) {
-        return database.getServiceProviders(service);
+        return database.getAllServiceProviders(service);
     }
 
     public LinkedList<String> searchServiceProviders(String srvc, String query) {
         LinkedList<String> matchingKeys = new LinkedList<>();
-        for (String key : database.getServiceProviders(srvc)) {
+        for (String key : database.getAllServiceProviders(srvc)) {
             if (key.contains(query)) {
                 matchingKeys.add(key);
             }
@@ -87,4 +83,9 @@ public class ServiceService {
         return currentService;
     }
 
+    public void addServiceProvider(Map<String, String> newProvider) {
+        String serviceName = newProvider.get("service");
+        String providerName = newProvider.get("provider");
+        database.addServiceProvider(serviceName,providerName);
+    }
 }

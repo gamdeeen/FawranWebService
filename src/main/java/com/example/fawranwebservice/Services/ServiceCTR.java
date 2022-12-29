@@ -58,14 +58,24 @@ public class ServiceCTR {
     @PostMapping("/submit")
     public Response submitForm(@RequestBody Map<String, String> payload) {
         if (service.checkCustomer())
-            return new Response(true,
-                    "Form Submitted Successfully", service.submitForm(payload));
+            return new Response(true, "Form Submitted Successfully", service.submitForm(payload));
 
         return FailedRequest();
     }
+
+    @PostMapping("/addServiceProvider")
+    public Response addServiceProvider(@RequestBody Map<String, String> newProvider){
+        if (!service.checkCustomer()){
+            service.addServiceProvider(newProvider);
+            return new Response(true,"Provider Added");
+        }
+        return new Response(false, "you are not a ADMIN");
+
+    }
+
+
     private Response FailedRequest() {
-        return new Response(false,
-                "Log in to Complete you service.", null);
+        return new Response(false, "you are not a customer.", null);
     }
 }
 

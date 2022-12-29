@@ -11,6 +11,6 @@ public class CashPayment extends IPayment {
 
         double amount = getServiceCost(service,discount);
 
-        return new Receipt(service, this, amount, true, address);
+        return new Receipt(service, this.getClass().getSimpleName(), amount, true, address,customer);
     }
 }
