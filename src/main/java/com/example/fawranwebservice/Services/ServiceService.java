@@ -1,9 +1,6 @@
 package com.example.fawranwebservice.Services;
 
 import com.example.fawranwebservice.Authentication.AuthenticationService;
-import com.example.fawranwebservice.Models.Customer;
-import com.example.fawranwebservice.Models.User;
-import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Repository.Database;
 import com.example.fawranwebservice.Services.Factories.ServiceFactory;
 import com.example.fawranwebservice.Services.Forms.Factory.FormFactory;
@@ -30,18 +27,15 @@ public class ServiceService {
         return currentService;
     }
 
-//    public void addTransaction(Receipt receipt) {
-//        database.addTransaction(authenticationService.getCurrent_user().getEmail(),receipt);
-//    }
-
     public LinkedList<String> getAllServices() {
         return database.getAllServices();
     }
 
     public LinkedList<String> searchServices(String likeService) {
+        likeService=likeService.toLowerCase();
         LinkedList<String> matchingKeys = new LinkedList<>();
         for (String key : database.getAllServices()) {
-            if (key.contains(likeService)) {
+            if (key.toLowerCase().contains(likeService)) {
                 matchingKeys.add(key);
             }
         }
@@ -57,9 +51,10 @@ public class ServiceService {
     }
 
     public LinkedList<String> searchServiceProviders(String srvc, String query) {
+        query=query.toLowerCase();
         LinkedList<String> matchingKeys = new LinkedList<>();
         for (String key : database.getAllServiceProviders(srvc)) {
-            if (key.contains(query)) {
+            if (key.toLowerCase().contains(query)) {
                 matchingKeys.add(key);
             }
         }

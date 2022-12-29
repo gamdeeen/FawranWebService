@@ -10,8 +10,6 @@ public class Form {
 
     public Form(String provider) {
         this.provider = provider;
-    //    date=new Date();
-     //   payment=0.0;
     }
 
     protected void Header(Map<String, String> payload){}
@@ -28,10 +26,6 @@ public class Form {
 
     public double getPayment() {
         return payment;
-    }
-
-    public String getProvider() {
-        return provider;
     }
 
     public Date getDate() {
