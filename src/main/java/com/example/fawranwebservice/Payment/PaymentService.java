@@ -46,10 +46,11 @@ public class PaymentService {
         factoryPayment(choice);
         ServiceEntity service_entity = service.getCurrentService();
         double discount_amount = discountService.getTotaldDiscount(service_entity.getName());
-        payment.setCustomer((Customer)authentication.getCurrent_user());
+        Customer customer = (Customer)authentication.getCurrent_user();
+        payment.setCustomer(customer);
         Receipt receipt = payment.pay(service_entity,discount_amount);
         if(receipt.done)
-            database.addTransaction(authentication.getCurrent_user().getEmail(),receipt);
+            database.addTransaction(customer.getEmail(),receipt);
 
         return receipt;
     }

@@ -8,7 +8,6 @@ public class WalletPayment extends IPayment {
     public Receipt pay(ServiceEntity service, double discount) {
 
         double amount = getServiceCost(service,discount);
-        System.out.println("Credit is: "+customer.getWallet().getCredit());
         if (customer.getWallet().decreaseCredit(amount))
             return new Receipt(service, this.getClass().getSimpleName(), amount, true,customer);
 
