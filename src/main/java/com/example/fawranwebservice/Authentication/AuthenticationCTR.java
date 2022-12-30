@@ -1,8 +1,8 @@
 package com.example.fawranwebservice.Authentication;
 
-import com.example.fawranwebservice.Models.Customer;
-import com.example.fawranwebservice.Models.Response;
-import com.example.fawranwebservice.Models.User;
+import com.example.fawranwebservice.Authentication.customer.Customer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,27 +17,27 @@ public class AuthenticationCTR {
 
 
     @PostMapping("/Login")
-    public Response login(@RequestBody User user){
+    public ResponseEntity login(@RequestBody User user){
         user = authentication.login(user);
         if(user != null){
-            return new Response(true, "Login Successfully", user);
+            return new ResponseEntity<>("Log in Successfully",HttpStatus.OK);
         }
-        return new Response(false, "Login Unsuccessfully");
+        return new ResponseEntity<>( "Log in Unsuccessfully",HttpStatus.BAD_REQUEST);
     }
 
 
     @PostMapping("/Register")
-    public Response register(@RequestBody Customer customer){
+    public ResponseEntity register(@RequestBody Customer customer){
         if(authentication.register(customer)){
-            return new Response(true, "Register Successfully", customer);
+            return new ResponseEntity<>("Register Successfully",HttpStatus.OK);
         }
-        return new Response(false, "Register Unsuccessfully");
+        return new ResponseEntity<>( "Register Unsuccessfully",HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/Logout")
-    public Response logout(){
+    public ResponseEntity logout(){
         authentication.logout();
-        return new Response(true, "Logout successfully");
+        return new ResponseEntity<>("Logout successfully", HttpStatus.OK);
     }
 
 

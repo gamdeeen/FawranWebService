@@ -1,6 +1,7 @@
 package com.example.fawranwebservice.Services;
 
-import com.example.fawranwebservice.Models.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -15,68 +16,65 @@ public class ServiceCTR {
     }
 
     @GetMapping
-    public Response getAllServices() {
+    public ResponseEntity getAllServices() {
         if (service.checkCustomer())
-            return new Response(true, "All Current Services", service.getAllServices());
-        return FailedRequest();
-
+            return new ResponseEntity<>(service.getAllServices(),HttpStatus.OK);
+        return new ResponseEntity<>("Customers only can use this endpoint.",HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/{query}")
-    public Response searchServices(@PathVariable(value = "query") String query) {
+    public ResponseEntity searchServices(@PathVariable(value = "query") String query) {
         if (service.checkCustomer())
-            return new Response(true, "Services Search Results.", service.searchServices(query));
-        return FailedRequest();
+            return new ResponseEntity<>(service.searchServices(query),HttpStatus.OK);
+        return new ResponseEntity<>("Customers only can use this endpoint.",HttpStatus.FORBIDDEN);
     }
 
 
     @GetMapping("/serviceProvider/{service}")
-    public Response getAllServiceProviders(@PathVariable(value = "service") String srvc) {
+    public ResponseEntity getAllServiceProviders(@PathVariable(value = "service") String srvc) {
         if (service.checkCustomer())
-            return new Response(true, "All service providers of selected service", service.getAllServiceProviders(srvc));
-        return FailedRequest();
+            return new ResponseEntity<>(service.getAllServiceProviders(srvc),HttpStatus.OK);
+        return new ResponseEntity<>("Customers only can use this endpoint.",HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/serviceProvider/{service}/{query}")
-    public Response searchServiceProviders(@PathVariable(value = "service") String srvc, @PathVariable(value = "query") String query) {
+    public ResponseEntity searchServiceProviders(@PathVariable(value = "service") String srvc, @PathVariable(value = "query") String query) {
         if (service.checkCustomer())
-            return new Response(true, "Service Providers Search Results", service.searchServiceProviders(srvc, query));
-        return FailedRequest();
+            return new ResponseEntity<>(service.searchServiceProviders(srvc, query),HttpStatus.OK);
+        return new ResponseEntity<>("Customers only can use this endpoint.",HttpStatus.FORBIDDEN);
     }
 
     @PostMapping("/form")
-    public Response getForm(@RequestBody Map<String, String> payload) {
+    public ResponseEntity getForm(@RequestBody Map<String, String> payload) {
         String srvc=payload.get("srvc");
         String srvcprvdr=payload.get("srvcprvdr");
-        if (service.checkCustomer())
-            return new Response(true, "Form of selected Service and Service Provider",
-                    service.CreateForm(srvc, srvcprvdr));
+        if (service.checkCustomer()) {
+            return new ResponseEntity<>(service.CreateForm(srvc, srvcprvdr),HttpStatus.OK);
+        }
 
-        return FailedRequest();
+        return new ResponseEntity<>("Customers only can use this endpoint.",HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/submit")
-    public Response submitForm(@RequestBody Map<String, String> payload) {
-        if (service.checkCustomer())
-            return new Response(true, "Form Submitted Successfully", service.submitForm(payload));
+    @PostMapping("/form/submit")
+    public ResponseEntity submitForm(@RequestBody Map<String, String> payload) {
+        if (service.checkCustomer()) {
+            service.submitForm(payload);
+            return new ResponseEntity<>("Form Submitted Successfully", HttpStatus.OK);
+        }
 
-        return FailedRequest();
+        return new ResponseEntity<>("Customers only can use this endpoint.",HttpStatus.FORBIDDEN);
     }
 
     @PostMapping("/addServiceProvider")
-    public Response addServiceProvider(@RequestBody Map<String, String> newProvider){
+    public ResponseEntity addServiceProvider(@RequestBody Map<String, String> newProvider){
         if (!service.checkCustomer()){
             service.addServiceProvider(newProvider);
-            return new Response(true,"Provider Added");
+            return new ResponseEntity<>("added "+newProvider.get("provider")+" provider to "+ newProvider.get("service"),HttpStatus.OK);
         }
-        return new Response(false, "you are not a ADMIN");
+        return new ResponseEntity<>("Admins only can use this endpoint.",HttpStatus.FORBIDDEN);
 
     }
 
-
-    private Response FailedRequest() {
-        return new Response(false, "you are not a customer.", null);
-    }
 }
 
 

@@ -1,8 +1,7 @@
 package com.example.fawranwebservice.Refunds;
 
 import com.example.fawranwebservice.Authentication.AuthenticationService;
-import com.example.fawranwebservice.Models.Customer;
-import com.example.fawranwebservice.Models.User;
+import com.example.fawranwebservice.Authentication.customer.Customer;
 import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Repository.Database;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,8 +62,8 @@ public class RefundRequestService {
         LinkedList<Receipt> customer_transactions = database.getTransactionsReceipts(email);
         boolean flag=false;
         for (int i=0;i<customer_transactions.size();i++) {
+            flag=true;
             if (Objects.equals(customer_transactions.get(i).getServiceID(), id)) {
-                flag=true;
                 database.deleteRequest(authentication.getCurrent_user().getEmail(),i);
                 // then delete this service
                 break;

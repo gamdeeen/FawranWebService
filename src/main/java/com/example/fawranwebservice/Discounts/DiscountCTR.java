@@ -1,11 +1,11 @@
 package com.example.fawranwebservice.Discounts;
 
 
-import com.example.fawranwebservice.Models.Response;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 @RestController
@@ -19,32 +19,32 @@ public class DiscountCTR {
 
 
     @GetMapping("/viewAll")
-    public Response viewAllDiscounts(){
-        return new Response(true,"All The Discounts",discountService.getAllDiscount());
+    public ResponseEntity viewAllDiscounts(){
+        return new ResponseEntity<>(discountService.getAllDiscount(),HttpStatus.OK);
     }
 
     @PostMapping("/createOverAll")
-    public Response createOverAllDiscount(@RequestBody Discount discount){
+    public ResponseEntity createOverAllDiscount(@RequestBody Discount discount){
         if(discountService.checkAdmin()) {
             discountService.addOverAllDiscount(discount);
-            return new Response(true, "Discount ADDED");
+            return new ResponseEntity<>("Overall discount added successfully",HttpStatus.OK);
         }
-        return new Response(false, "YOU ARE NOT A ADMIN");
+        return new ResponseEntity<>("YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
     @PostMapping("/createSpecific")
-    public Response createSpecificDiscount(@RequestBody Map<String, Discount> discount){
+    public ResponseEntity createSpecificDiscount(@RequestBody Map<String, Discount> discount){
         if(discountService.checkAdmin()) {
             discountService.addSpecificDiscount(discount);
-            return new Response(true, "Discount ADDED", discount);
+            return new ResponseEntity<>("Specific discount added successfully",HttpStatus.OK);
         }
-        return new Response(false, "YOU ARE NOT A ADMIN");
+        return new ResponseEntity<>("YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
     @PutMapping("/delete")
-    public Response deleteDiscount(@RequestBody Discount discountDescription){
+    public ResponseEntity deleteDiscount(@RequestBody Discount discountDescription){
         if(discountService.checkAdmin()) {
             discountService.deleteDiscount(discountDescription.getDescription());
-            return new Response(true, "Discount Removed");
+            return new ResponseEntity<>("Discount Removed",HttpStatus.OK);
         }
-        return new Response(false, "YOU ARE NOT A ADMIN");
+        return new ResponseEntity<>("YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
 }

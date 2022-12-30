@@ -1,8 +1,11 @@
 package com.example.fawranwebservice.Repository;
 
 
+import com.example.fawranwebservice.Authentication.Admin;
+import com.example.fawranwebservice.Authentication.customer.CreditCard;
+import com.example.fawranwebservice.Authentication.customer.Customer;
+import com.example.fawranwebservice.Authentication.User;
 import com.example.fawranwebservice.Discounts.Discount;
-import com.example.fawranwebservice.Models.*;
 import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.STL.Pair;
 import com.example.fawranwebservice.Services.Factories.*;

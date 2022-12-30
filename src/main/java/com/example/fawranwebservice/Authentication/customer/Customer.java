@@ -1,4 +1,6 @@
-package com.example.fawranwebservice.Models;
+package com.example.fawranwebservice.Authentication.customer;
+
+import com.example.fawranwebservice.Authentication.User;
 
 public class Customer extends User {
     Wallet wallet;

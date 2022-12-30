@@ -1,10 +1,10 @@
-package com.example.fawranwebservice.Models;
+package com.example.fawranwebservice.Authentication;
 
 public class User {
     String email;
     String password;
 
-    User(String email, String password){
+    public User(String email, String password){
         this.email = email;
         this.password = password;
     }
