@@ -1,8 +1,9 @@
 package com.example.fawranwebservice.Payment;
 
 import com.example.fawranwebservice.Discounts.Discount;
-import com.example.fawranwebservice.Models.Response;
 import com.example.fawranwebservice.Payment.Model.Receipt;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -20,27 +21,26 @@ public class PaymentCTR {
     }
 
     @PostMapping("/{choice}")
-    public Response pay(@PathVariable("choice") int choice) {
+    public ResponseEntity pay(@PathVariable("choice") int choice) {
         Receipt receipt = paymentservice.pay(choice);
         if(receipt == null) {
-            return new Response(false,"YOU ARE NOT A CUSTOMER");
+            return new ResponseEntity<>("YOU ARE NOT A CUSTOMER",HttpStatus.FORBIDDEN);
         }
-        Response response = new Response(receipt.done, receipt);
-
         if (receipt.done)
-            response.setMessage("PAYMENT IS DONE successfully");
+            return new ResponseEntity<>(receipt,HttpStatus.OK);
         else
-            response.setMessage("TRY AGAIN");
-        return response;
+            return new ResponseEntity<>("Try Again",HttpStatus.BAD_REQUEST);
+
+
     }
 
     @PutMapping("/{credit}")
-    public Response addCredit(@PathVariable("credit") double credit){
+    public ResponseEntity addCredit(@PathVariable("credit") double credit){
         credit = paymentservice.addCredit(credit);
         if(credit == -1) {
-            return new Response(false,"YOU ARE NOT A CUSTOMER");
+            return new ResponseEntity<>("YOU ARE NOT A CUSTOMER", HttpStatus.FORBIDDEN);
         }
-        return new Response(true,"Credit Added to wallet successfully",credit);
+        return new ResponseEntity<>(credit+" pounds Added to wallet successfully",HttpStatus.OK);
     }
 
     // for check only

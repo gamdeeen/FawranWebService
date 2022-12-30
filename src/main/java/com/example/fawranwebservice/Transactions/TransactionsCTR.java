@@ -1,11 +1,8 @@
 package com.example.fawranwebservice.Transactions;
 
-import com.example.fawranwebservice.Models.Response;
-import com.example.fawranwebservice.Payment.Model.Receipt;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.LinkedList;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/Transactions")
@@ -17,29 +14,29 @@ public class TransactionsCTR {
     }
 
     @GetMapping("/ListTransactions")
-    public Response listTransactions(){
+    public ResponseEntity listTransactions(){
         if(transactionsservice.checkAdmin())
-            return new Response(true,"YOU ARE NOT A CUSTOMER");
-        return new Response(true,"Transaction list", transactionsservice.getTransactions());
+            return new ResponseEntity<>("YOU ARE NOT A CUSTOMER",HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(transactionsservice.getTransactions(),HttpStatus.OK);
     }
 
     // ADMIN
     @GetMapping("/ListAllPaymentTransactions")
-    public Response listAllPaymentTransactions(){
+    public ResponseEntity listAllPaymentTransactions(){
         if(transactionsservice.checkAdmin())
-            return new Response(true,"All Transactions",transactionsservice.getAllPaymentTransactions());
+            return new ResponseEntity<>(transactionsservice.getAllPaymentTransactions(),HttpStatus.OK);
         return adminFailedRequest();
     }
 
     @GetMapping("/ListAllWalletTransactions")
-    public Response listAllWalletTransactions(){
+    public ResponseEntity listAllWalletTransactions(){
         if(transactionsservice.checkAdmin())
-            return new Response(true,"All Transactions",transactionsservice.getAllWalletTransactions());
+            return new ResponseEntity<>(transactionsservice.getAllWalletTransactions(),HttpStatus.OK);
         return adminFailedRequest();
     }
 
-    public Response adminFailedRequest(){
-        return new Response(false, "YOU ARE NOT A ADMIN");
+    public ResponseEntity adminFailedRequest(){
+        return new ResponseEntity<>( "YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
 
 }

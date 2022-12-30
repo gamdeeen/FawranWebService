@@ -1,6 +1,7 @@
 package com.example.fawranwebservice.Refunds;
 
-import com.example.fawranwebservice.Models.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -16,41 +17,45 @@ public class RefundRequestCTR {
     }
 
     @GetMapping(value = "/viewRequests")
-    public Response Display(){
+    public ResponseEntity Display(){
         if(refundRequestService.checkAdmin())
-            return new Response(true,"list Requests",refundRequestService.display());
+            return new ResponseEntity<>(refundRequestService.display(),HttpStatus.OK);
         return adminFailedRequest();
     }
 
     @PutMapping(value = "/accept")
-    public Response accept(@RequestBody Map<String, String> emailid){
+    public ResponseEntity accept(@RequestBody Map<String, String> emailid){
         String email = emailid.get("email");
         int id = Integer.parseInt(emailid.get("id"));
-        if(refundRequestService.checkAdmin())
-            return new Response(refundRequestService.accept(email, id),"ACCEPTED");
+        if(refundRequestService.checkAdmin()){
+            refundRequestService.accept(email, id);
+            return new ResponseEntity<>("ACCEPTED",HttpStatus.OK);
+        }
         return adminFailedRequest();
 
     }
 
     @PostMapping("/RequestRefund/{id}")
-    public Response RequestRefund(@PathVariable("id") int id){
+    public ResponseEntity RequestRefund(@PathVariable("id") int id){
         if(!refundRequestService.checkAdmin()) {
             refundRequestService.request(id);
-            return new Response(true, "Request recorded");
+            return new ResponseEntity<>("Request recorded",HttpStatus.OK);
         }
-        return new Response(false,"YOU ARE NOT A CUSTOMER");
+        return new ResponseEntity<>("YOU ARE NOT A CUSTOMER",HttpStatus.FORBIDDEN);
     }
 
     @PutMapping(value = "/reject")
-    public Response reject(@RequestBody Map<String, String> emailid) {
+    public ResponseEntity reject(@RequestBody Map<String, String> emailid) {
         String email = emailid.get("email");
         int id = Integer.parseInt(emailid.get("id"));
-        if (refundRequestService.checkAdmin())
-            return new Response(refundRequestService.reject(email, id), "REJECTED");
+        if (refundRequestService.checkAdmin()) {
+            refundRequestService.reject(email, id);
+            return new ResponseEntity<>("REJECTED",HttpStatus.OK);
+        }
         return adminFailedRequest();
 
     }
-    public Response adminFailedRequest(){
-        return new Response(false, "YOU ARE NOT A ADMIN");
+    public ResponseEntity adminFailedRequest(){
+        return new ResponseEntity<>( "YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
 }
