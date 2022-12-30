@@ -60,14 +60,17 @@ public class RefundRequestService {
         }
         return flag;
     }
-    public void request(int id) {
+    public boolean request(int id) {
         LinkedList<Receipt> myReceipt = database.getTransactionsReceipts(authentication.getCurrent_user().getEmail());
+        boolean flag = false;
         for (Receipt receipt : myReceipt) {
             if (Objects.equals(receipt.getServiceID(), id)) {
                 database.addRequest(authentication.getCurrent_user().getEmail(),receipt);
+                flag = true;
                 break;
             }
         }
+        return flag;
     }
 
     public boolean reject(String email,int id) {
