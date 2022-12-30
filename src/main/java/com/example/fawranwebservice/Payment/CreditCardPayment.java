@@ -27,7 +27,7 @@ public class CreditCardPayment extends IPayment {
         */
         return creditCard!=null;
     }
-    public boolean addToWallet(double amount, Customer cust){
+    public boolean checkCreditCardCredit(double amount, Customer cust){
         CreditCard creditCard = cust.getCreditCard();
         return completePayment(creditCard,amount);
     }

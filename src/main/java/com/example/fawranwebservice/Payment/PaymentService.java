@@ -4,7 +4,6 @@ import com.example.fawranwebservice.Authentication.AuthenticationService;
 import com.example.fawranwebservice.Discounts.Discount;
 import com.example.fawranwebservice.Discounts.DiscountService;
 import com.example.fawranwebservice.Models.Customer;
-import com.example.fawranwebservice.Models.User;
 import com.example.fawranwebservice.Models.Wallet;
 import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Repository.Database;
@@ -72,7 +71,7 @@ public class PaymentService {
         CreditCardPayment creditCardPayment = new CreditCardPayment();
         Customer customer =(Customer)authentication.getCurrent_user();
         Wallet wallet = customer.getWallet();
-        if(creditCardPayment.addToWallet(credit,customer)){
+        if(creditCardPayment.checkCreditCardCredit(credit,customer)){
             increaseCredit(credit,wallet);
             database.addWalletTransaction(customer.getEmail(),credit);
         }
