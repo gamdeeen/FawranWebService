@@ -1,8 +1,6 @@
 package com.example.fawranwebservice.Authentication;
 
-import com.example.fawranwebservice.Models.Admin;
-import com.example.fawranwebservice.Models.Customer;
-import com.example.fawranwebservice.Models.User;
+import com.example.fawranwebservice.Authentication.customer.Customer;
 import com.example.fawranwebservice.Repository.Database;
 import org.springframework.stereotype.Service;
 

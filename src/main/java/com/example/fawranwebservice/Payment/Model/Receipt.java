@@ -1,7 +1,6 @@
 package com.example.fawranwebservice.Payment.Model;
 
-import com.example.fawranwebservice.Models.Customer;
-import com.example.fawranwebservice.Payment.IPayment;
+import com.example.fawranwebservice.Authentication.customer.Customer;
 import com.example.fawranwebservice.Services.ServiceEntity;
 
 import java.util.Calendar;

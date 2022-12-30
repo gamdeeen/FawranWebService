@@ -2,10 +2,7 @@ package com.example.fawranwebservice.Payment;
 
 import com.example.fawranwebservice.Discounts.Discount;
 import com.example.fawranwebservice.Models.Response;
-import com.example.fawranwebservice.Models.User;
 import com.example.fawranwebservice.Payment.Model.Receipt;
-import com.example.fawranwebservice.Repository.Database;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

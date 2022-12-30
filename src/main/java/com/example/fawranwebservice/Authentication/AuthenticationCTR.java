@@ -1,8 +1,7 @@
 package com.example.fawranwebservice.Authentication;
 
-import com.example.fawranwebservice.Models.Customer;
+import com.example.fawranwebservice.Authentication.customer.Customer;
 import com.example.fawranwebservice.Models.Response;
-import com.example.fawranwebservice.Models.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

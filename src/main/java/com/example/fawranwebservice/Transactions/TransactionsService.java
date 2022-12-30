@@ -1,7 +1,6 @@
 package com.example.fawranwebservice.Transactions;
 
 import com.example.fawranwebservice.Authentication.AuthenticationService;
-import com.example.fawranwebservice.Models.Customer;
 import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Repository.Database;
 import com.example.fawranwebservice.STL.Pair;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 public class TransactionsService {
