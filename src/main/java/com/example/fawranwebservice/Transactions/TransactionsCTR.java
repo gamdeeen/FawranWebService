@@ -13,30 +13,18 @@ public class TransactionsCTR {
         this.transactionsservice = transactionsservice;
     }
 
-    @GetMapping("/ListTransactions")
-    public ResponseEntity listTransactions(){
+    @GetMapping("/ServiceTransactions")
+    public ResponseEntity serviceTransactions(){
         if(transactionsservice.checkAdmin())
-            return new ResponseEntity<>("YOU ARE NOT A CUSTOMER",HttpStatus.FORBIDDEN);
-        return new ResponseEntity<>(transactionsservice.getTransactions(),HttpStatus.OK);
+            return new ResponseEntity<>(transactionsservice.getAllServiceTransactions(),HttpStatus.OK);
+        return new ResponseEntity<>(transactionsservice.getCustomerServiceTransactions(),HttpStatus.OK);
     }
 
-    // ADMIN
-    @GetMapping("/ListAllPaymentTransactions")
-    public ResponseEntity listAllPaymentTransactions(){
-        if(transactionsservice.checkAdmin())
-            return new ResponseEntity<>(transactionsservice.getAllPaymentTransactions(),HttpStatus.OK);
-        return adminFailedRequest();
-    }
-
-    @GetMapping("/ListAllWalletTransactions")
-    public ResponseEntity listAllWalletTransactions(){
+    @GetMapping("/WalletTransactions")
+    public ResponseEntity walletTransactions(){
         if(transactionsservice.checkAdmin())
             return new ResponseEntity<>(transactionsservice.getAllWalletTransactions(),HttpStatus.OK);
-        return adminFailedRequest();
-    }
+        return new ResponseEntity<>(transactionsservice.getCustomerWalletTransactions(),HttpStatus.OK);
 
-    public ResponseEntity adminFailedRequest(){
-        return new ResponseEntity<>( "YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
-
 }

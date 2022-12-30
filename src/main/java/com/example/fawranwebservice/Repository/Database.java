@@ -18,7 +18,7 @@ public class Database {
     //  ---------  USERS -------
     private Map<String, User> registered_user = new HashMap<>() {{
         this.put("1", new Customer("NUMBER", "ONE", "1", "1", "1", new CreditCard()));
-        this.put("customer", new Customer("NUMBER", "ONE", "1", "1", "customer", new CreditCard()));
+        this.put("customer", new Customer("NUMBER", "ONE", "1", "customer", "customer", new CreditCard()));
         this.put("diaa@gmail.com", new Customer("zeyad", "diaa", "maadi", "diaa@gmail.com", "123456", new CreditCard()));
         this.put("yaya@gmail.com", new Customer("Yahia", "Ashraf", "mohndseen", "yaya@gmail.com", "246810", new CreditCard()));
         this.put("joe@gmail.com", new Customer("joe", "waild", "gnb nady el said", "joe@gmail.com", "357911", new CreditCard()));
@@ -110,7 +110,7 @@ public class Database {
 
 
     // ----------- DISCOUNTS ----------
-    public HashMap<String, LinkedList<Discount>> Discounts = new HashMap<>() {{
+    private HashMap<String, LinkedList<Discount>> Discounts = new HashMap<>() {{
         this.put("Mobile Recharge", new LinkedList<>());
         this.put("Internet Payment", new LinkedList<>());
         this.put("Landline Payment", new LinkedList<>());
@@ -147,14 +147,9 @@ public class Database {
 
 
     // -------- TRANSACTIONS ----------
-    public Map<String, LinkedList<Receipt>> transactions = new HashMap<>() {{
-        this.put("diaa@gmail.com", new LinkedList<>());
-        this.put("yaya@gmail.com", new LinkedList<>());
-        this.put("joe@gmail.com", new LinkedList<>());
-        this.put("YAHIA_EL_HADIDI@gmail.com", new LinkedList<>());
-    }};
+    private HashMap<String, LinkedList<Receipt>> ServiceTransactions = new HashMap<>();
     protected boolean checkTransactions(String email) {
-        return transactions.containsKey(email);
+        return ServiceTransactions.containsKey(email);
     }
 
     public void addRequest(String email, Receipt receipt) {
@@ -171,21 +166,22 @@ public class Database {
         if (!checkTransactions(email)) {
             LinkedList<Receipt> listOfReceipts = new LinkedList<>();
             listOfReceipts.add(receipt);
-            transactions.put(email, listOfReceipts);
+            ServiceTransactions.put(email, listOfReceipts);
         } else {
-            transactions.get(email).add(receipt);
+            ServiceTransactions.get(email).add(receipt);
         }
     }
     public LinkedList<Receipt> getTransactionsReceipts(String email) {
-        return transactions.get(email);
+        return ServiceTransactions.get(email);
     }
     public void deleteTransaction(String email, int index) {
-        transactions.get(email).remove(index);
+        ServiceTransactions.get(email).remove(index);
+        System.out.println(ServiceTransactions.get(email));
     }
 
 
     // -------- REQUESTS ---------
-    public Map<String, LinkedList<Receipt>> requests = new HashMap<>();
+    private HashMap<String, LinkedList<Receipt>> requests = new HashMap<>();
 
     public void deleteRequest(String email, int index) {
         requests.get(email).remove(index);
@@ -198,7 +194,7 @@ public class Database {
 
     // ------- WALLET -------
 
-    public Map<String, LinkedList<Pair>> walletTransaction = new HashMap<>();
+    private Map<String, LinkedList<Pair>> walletTransaction = new HashMap<>();
 
     public void addWalletTransaction(String email, double credit) {
         if(walletTransaction.get(email) != null) {
@@ -219,4 +215,19 @@ public class Database {
     }
 
 
+    public Map<String, LinkedList<Receipt>> getAllRefundRequests() {
+        return requests;
+    }
+
+    public Map<String, LinkedList<Receipt>> getAllServiceTransactions() {
+        return ServiceTransactions;
+    }
+
+    public Map<String, LinkedList<Pair>> getAllWalletTransactions() {
+        return walletTransaction;
+    }
+
+    public LinkedList<Pair> getCustomerWalletTransactions(String email) {
+        return walletTransaction.get(email);
+    }
 }

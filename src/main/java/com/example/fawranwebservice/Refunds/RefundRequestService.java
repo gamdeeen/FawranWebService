@@ -4,11 +4,13 @@ import com.example.fawranwebservice.Authentication.AuthenticationService;
 import com.example.fawranwebservice.Authentication.customer.Customer;
 import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Repository.Database;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 public class RefundRequestService {
@@ -24,8 +26,14 @@ public class RefundRequestService {
     public boolean checkAdmin(){
         return authentication.checkAdmin();
     }
-    public Map<String, LinkedList<Receipt>> display() {
-        return database.requests;
+    public ResponseEntity display() {
+        Map<String,LinkedList<Receipt>> RefundRequests=database.getAllRefundRequests();
+        if(RefundRequests.isEmpty()){
+            return new ResponseEntity<>("No Refund Requests at the moment.",HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity(RefundRequests,HttpStatus.OK);
+        }
     }
 
     public boolean accept(String email,int id) {
@@ -49,7 +57,7 @@ public class RefundRequestService {
         return flag;
     }
     public void request(int id) {
-        LinkedList<Receipt> myReceipt = database.transactions.get(authentication.getCurrent_user().getEmail());
+        LinkedList<Receipt> myReceipt = database.getTransactionsReceipts(authentication.getCurrent_user().getEmail());
         for (Receipt receipt : myReceipt) {
             if (Objects.equals(receipt.getServiceID(), id)) {
                 database.addRequest(authentication.getCurrent_user().getEmail(),receipt);

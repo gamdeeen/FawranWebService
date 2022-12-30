@@ -18,12 +18,12 @@ public class DiscountCTR {
     }
 
 
-    @GetMapping("/viewAll")
+    @GetMapping
     public ResponseEntity viewAllDiscounts(){
         return new ResponseEntity<>(discountService.getAllDiscount(),HttpStatus.OK);
     }
 
-    @PostMapping("/createOverAll")
+    @PostMapping("/Overall")
     public ResponseEntity createOverAllDiscount(@RequestBody Discount discount){
         if(discountService.checkAdmin()) {
             discountService.addOverAllDiscount(discount);
@@ -31,7 +31,7 @@ public class DiscountCTR {
         }
         return new ResponseEntity<>("YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
-    @PostMapping("/createSpecific")
+    @PostMapping("/Specific")
     public ResponseEntity createSpecificDiscount(@RequestBody Map<String, Discount> discount){
         if(discountService.checkAdmin()) {
             discountService.addSpecificDiscount(discount);
@@ -39,7 +39,7 @@ public class DiscountCTR {
         }
         return new ResponseEntity<>("YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
-    @PutMapping("/delete")
+    @DeleteMapping()
     public ResponseEntity deleteDiscount(@RequestBody Discount discountDescription){
         if(discountService.checkAdmin()) {
             discountService.deleteDiscount(discountDescription.getDescription());

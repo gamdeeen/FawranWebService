@@ -38,10 +38,10 @@ public class RefundRequestCTR {
 
     }
 
-    @PostMapping("/RequestRefund/{id}")
-    public ResponseEntity RequestRefund(@PathVariable("id") int id) {
+    @PostMapping
+    public ResponseEntity RequestRefund(@RequestBody Map<String,Integer> payload) {
         if (!refundRequestService.checkAdmin()) {
-            refundRequestService.request(id);
+            refundRequestService.request(payload.get("id"));
             return new ResponseEntity<>("Request recorded", HttpStatus.OK);
         }
         return new ResponseEntity<>("YOU ARE NOT A CUSTOMER", HttpStatus.FORBIDDEN);
@@ -62,7 +62,7 @@ public class RefundRequestCTR {
 
     }
 
-    public ResponseEntity adminFailedRequest() {
+    private ResponseEntity adminFailedRequest() {
         return new ResponseEntity<>("YOU ARE NOT A ADMIN", HttpStatus.FORBIDDEN);
     }
 }

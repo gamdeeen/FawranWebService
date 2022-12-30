@@ -1,6 +1,7 @@
 package com.example.fawranwebservice.Discounts;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class Discount {
     String description;
@@ -34,8 +35,8 @@ public class Discount {
         this.percentage = percentage;
     }
 
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setDate() {
+        this.date = Calendar.getInstance();
     }
 
 }

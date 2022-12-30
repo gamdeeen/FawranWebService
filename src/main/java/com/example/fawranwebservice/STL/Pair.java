@@ -4,11 +4,11 @@ package com.example.fawranwebservice.STL;
 import java.util.Calendar;
 
 public class Pair {
-    public double first;
-    public Calendar second;
+    public double credit;
+    public Calendar date;
 
     public Pair(double credit) {
-        first = credit;
-        second = Calendar.getInstance();
+        this.credit = credit;
+        this.date = Calendar.getInstance();
     }
 }

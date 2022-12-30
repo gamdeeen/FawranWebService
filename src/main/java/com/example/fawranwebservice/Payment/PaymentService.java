@@ -9,6 +9,8 @@ import com.example.fawranwebservice.Payment.Model.Receipt;
 import com.example.fawranwebservice.Repository.Database;
 import com.example.fawranwebservice.Services.ServiceEntity;
 import com.example.fawranwebservice.Services.ServiceService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -28,30 +30,31 @@ public class PaymentService {
         this.authentication = authentication;
         this.database = database;
     }
-    // for check only
-//    User getCurrentUser(){
-//        return authentication.getCurrent_user();
-//    }
-    HashMap<String, LinkedList<Discount>> getDiscount(){
-        return database.getAllDiscounts();
-    }
 
-
-
-    public Receipt pay(int choice){
+    public ResponseEntity pay(int choice){
         if(authentication.checkAdmin())
-            return null;
+            return new ResponseEntity<>("YOU ARE NOT A CUSTOMER", HttpStatus.FORBIDDEN);
 
         factoryPayment(choice);
+
         ServiceEntity service_entity = service.getCurrentService();
+
+        if(service_entity==null)
+            return new ResponseEntity<>("There is no service to pay for request a service and submit its form then try again"
+                    , HttpStatus.BAD_REQUEST);
+
         double discount_amount = discountService.getTotaldDiscount(service_entity.getName());
         Customer customer = (Customer)authentication.getCurrent_user();
+
         payment.setCustomer(customer);
         Receipt receipt = payment.pay(service_entity,discount_amount);
-        if(receipt.done)
-            database.addTransaction(customer.getEmail(),receipt);
 
-        return receipt;
+        if(receipt.done) {
+            database.addTransaction(customer.getEmail(), receipt);
+            return new ResponseEntity<>(receipt, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>("Try Again",HttpStatus.BAD_REQUEST);
     }
 
     public void factoryPayment(int choice) {
