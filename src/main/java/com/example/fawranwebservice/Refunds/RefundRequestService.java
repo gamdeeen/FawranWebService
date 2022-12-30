@@ -28,20 +28,25 @@ public class RefundRequestService {
         return database.requests;
     }
 
-    public void accept(String email,int id) {
+    public boolean accept(String email,int id) {
         double Totalpayed;
         LinkedList<Receipt> customer_transactions = database.getTransactionsReceipts(email);
+        boolean flag=false;
         for (int i=0;i<customer_transactions.size();i++) {
             if (Objects.equals(customer_transactions.get(i).getServiceID(), id)) {
+                flag=true;
                 Totalpayed = customer_transactions.get(i).getCost();
                 database.deleteRequest(email,i);
                 database.deleteTransaction(email,i);
+
+
                 Customer customer = (Customer) database.getCustomer(email);
                 customer.getWallet().setCredit(Totalpayed+(customer.getWallet().getCredit()));
                 // then delete this service
                 break;
             }
         }
+        return flag;
     }
     public void request(int id) {
         LinkedList<Receipt> myReceipt = database.transactions.get(authentication.getCurrent_user().getEmail());
@@ -53,14 +58,17 @@ public class RefundRequestService {
         }
     }
 
-    public void reject(String email,int id) {
+    public boolean reject(String email,int id) {
         LinkedList<Receipt> customer_transactions = database.getTransactionsReceipts(email);
+        boolean flag=false;
         for (int i=0;i<customer_transactions.size();i++) {
+            flag=true;
             if (Objects.equals(customer_transactions.get(i).getServiceID(), id)) {
                 database.deleteRequest(authentication.getCurrent_user().getEmail(),i);
                 // then delete this service
                 break;
             }
         }
+        return flag;
     }
 }
