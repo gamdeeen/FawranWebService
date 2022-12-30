@@ -183,9 +183,14 @@ public class Database {
     // -------- REQUESTS ---------
     private HashMap<String, LinkedList<Receipt>> requests = new HashMap<>();
 
+    public void getRequestReceipts(String email){
+        requests.get(email);
+    }
+
     public void deleteRequest(String email, int index) {
         requests.get(email).remove(index);
     }
+
 
     protected boolean checkRequests(String email) {
         return requests.containsKey(email);

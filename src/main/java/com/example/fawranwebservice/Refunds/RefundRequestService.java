@@ -39,19 +39,23 @@ public class RefundRequestService {
     public boolean accept(String email,int id) {
         double Totalpayed;
         LinkedList<Receipt> customer_transactions = database.getTransactionsReceipts(email);
+        LinkedList<Receipt> requests = database.getRequestsReceipts(email);
         boolean flag=false;
         for (int i=0;i<customer_transactions.size();i++) {
             if (Objects.equals(customer_transactions.get(i).getServiceID(), id)) {
-                flag=true;
-                Totalpayed = customer_transactions.get(i).getCost();
-                database.deleteRequest(email,i);
-                database.deleteTransaction(email,i);
+                for(int j = 0;j<requests.size();j++){
+                    if(Objects.equals(requests.get(j).getServiceID(),id)){
+                        flag=true;
+                        Totalpayed = customer_transactions.get(i).getCost();
+                        database.deleteRequest(email,j);
+                        database.deleteTransaction(email,i);
 
 
-                Customer customer = (Customer) database.getCustomer(email);
-                customer.getWallet().setCredit(Totalpayed+(customer.getWallet().getCredit()));
-                // then delete this service
-                break;
+                        Customer customer = (Customer) database.getCustomer(email);
+                        customer.getWallet().setCredit(Totalpayed+(customer.getWallet().getCredit()));
+                        break;
+                    }
+                }
             }
         }
         return flag;
@@ -67,13 +71,12 @@ public class RefundRequestService {
     }
 
     public boolean reject(String email,int id) {
-        LinkedList<Receipt> customer_transactions = database.getTransactionsReceipts(email);
+        LinkedList<Receipt> requests = database.getRequestsReceipts(email);
         boolean flag=false;
-        for (int i=0;i<customer_transactions.size();i++) {
-            flag=true;
-            if (Objects.equals(customer_transactions.get(i).getServiceID(), id)) {
-                database.deleteRequest(authentication.getCurrent_user().getEmail(),i);
-                // then delete this service
+        for (int i=0;i<requests.size();i++) {
+            if (Objects.equals(requests.get(i).getServiceID(), id)) {
+                flag=true;
+                database.deleteRequest(email,i);
                 break;
             }
         }
