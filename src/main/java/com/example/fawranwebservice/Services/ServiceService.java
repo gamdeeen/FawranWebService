@@ -83,4 +83,13 @@ public class ServiceService {
         String providerName = newProvider.get("provider");
         database.addServiceProvider(serviceName,providerName);
     }
+
+    public boolean checkService(String srvc,String srvcprvdr){
+        if(database.checkService(srvc)){
+            if(database.checkServiceProvider(srvc,srvcprvdr))
+                return true;
+        }
+        return false;
+    }
+
 }

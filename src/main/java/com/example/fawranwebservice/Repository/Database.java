@@ -108,6 +108,18 @@ public class Database {
         serviceProviders.get(service).add(service_provider);
     }
 
+    public boolean checkService(String srvc){
+        return serviceProviders.containsKey(srvc);
+    }
+
+    public boolean checkServiceProvider(String srvc,String srvcprvdr){
+        LinkedList<String> servicep = serviceProviders.get(srvc);
+        for(String prvdr : servicep){
+            if(Objects.equals(prvdr,srvcprvdr))
+                return true;
+        }
+        return false;
+    }
 
     // ----------- DISCOUNTS ----------
     private HashMap<String, LinkedList<Discount>> Discounts = new HashMap<>() {{

@@ -49,7 +49,12 @@ public class ServiceCTR {
         String srvc=payload.get("srvc");
         String srvcprvdr=payload.get("srvcprvdr");
         if (service.checkCustomer()) {
-            return new ResponseEntity<>(service.CreateForm(srvc, srvcprvdr),HttpStatus.OK);
+            if(service.checkService(srvc,srvcprvdr)){
+                return new ResponseEntity<>(service.CreateForm(srvc, srvcprvdr),HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("Wrong service or service provider",HttpStatus.NOT_FOUND);
+            }
         }
 
         return new ResponseEntity<>("Customers only can use this endpoint.",HttpStatus.FORBIDDEN);
