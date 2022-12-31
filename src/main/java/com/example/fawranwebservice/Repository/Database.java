@@ -108,6 +108,18 @@ public class Database {
         serviceProviders.get(service).add(service_provider);
     }
 
+    public boolean checkService(String srvc){
+        return serviceProviders.containsKey(srvc);
+    }
+
+    public boolean checkServiceProvider(String srvc,String srvcprvdr){
+        LinkedList<String> servicep = serviceProviders.get(srvc);
+        for(String prvdr : servicep){
+            if(Objects.equals(prvdr,srvcprvdr))
+                return true;
+        }
+        return false;
+    }
 
     // ----------- DISCOUNTS ----------
     private HashMap<String, LinkedList<Discount>> Discounts = new HashMap<>() {{
@@ -183,9 +195,14 @@ public class Database {
     // -------- REQUESTS ---------
     private HashMap<String, LinkedList<Receipt>> requests = new HashMap<>();
 
+    public void getRequestReceipts(String email){
+        requests.get(email);
+    }
+
     public void deleteRequest(String email, int index) {
         requests.get(email).remove(index);
     }
+
 
     protected boolean checkRequests(String email) {
         return requests.containsKey(email);

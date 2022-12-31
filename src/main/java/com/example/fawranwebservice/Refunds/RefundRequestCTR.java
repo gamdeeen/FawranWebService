@@ -41,8 +41,10 @@ public class RefundRequestCTR {
     @PostMapping
     public ResponseEntity RequestRefund(@RequestBody Map<String,Integer> payload) {
         if (!refundRequestService.checkAdmin()) {
-            refundRequestService.request(payload.get("id"));
-            return new ResponseEntity<>("Request recorded", HttpStatus.OK);
+            if(refundRequestService.request(payload.get("id")))
+                return new ResponseEntity<>("Request recorded", HttpStatus.OK);
+            else
+                return new ResponseEntity<>("no such ServiceID", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("YOU ARE NOT A CUSTOMER", HttpStatus.FORBIDDEN);
     }
