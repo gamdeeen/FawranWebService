@@ -4,7 +4,7 @@
 Fawran is wev service that offers many services & provides easy ways to pay, from a push of a button to paying in cash.
 
 
-# the following GitHub link will contain the Repository where our project will be
+the following GitHub link will contain the Repository where our project will be
 
 
 ## 🔗 Links
@@ -20,7 +20,7 @@ using pull request
 ```Git bash
      git clone https://github.com/gamdeeen/FawranWebService.git
 ```
-the project should be downloaded as maven project
+the project should be downloaded as maven project and can be run using your favorite IDE :)
 
 ## Used By
 
@@ -32,7 +32,7 @@ This project could be used by:
 
 ## API Reference
 
-#AUTHENTICATION PACKAGE
+# AUTHENTICATION PACKAGE
 
 #### Login
 ```http
@@ -57,7 +57,7 @@ This project could be used by:
   PUT {{LocalHost}}/Authentication/Logout
 ```
 
-#SERVICES PACKAGE
+# SERVICES PACKAGE
 
 #### ShowAllServices
 ```http
@@ -115,7 +115,7 @@ submits the form that was created
 
 only admin can use this request, add new service provider for a service
 
-#PAYMENT PACKAGE
+# PAYMENT PACKAGE
 
 #### pay
 ```http
@@ -133,7 +133,7 @@ pay for the last submited form(choice->1:wallet,2:creditcard,3:cash)
 
 add money to wallet
 
-#TRANSACTIONS PACKAGE
+# TRANSACTIONS PACKAGE
 
 #### showServicetransactions
 ```http
@@ -147,7 +147,7 @@ gets all service transaction for the customer that is logged in
 ```
 gets all Wallet transaction for the customer that is logged in
 
-#RefundRequests PACKAGE
+# RefundRequests PACKAGE
 
 #### requestRefund
 ```http
@@ -182,7 +182,7 @@ request refund on transaction with given id(used by customer)
 | `email`    | `string` | customer email             |
 | `id`       | `int`    | request id                 |
 
-#DISCOUNTS PACKAGE
+# DISCOUNTS PACKAGE
 
 #### showDiscounts
 ```http
@@ -285,7 +285,7 @@ form filled
     output
        {
          "serviceAndProvider": "Donations Schools",
-         "serviceID": 2,
+         "serviceID": 1,
          "cost": 120.0,
          "payment": "CashPayment",
          "done": true,
@@ -301,7 +301,7 @@ cash payment Successfull
     output
        {
          "serviceAndProvider": "Donations Schools",
-         "serviceID": 2,
+         "serviceID": 1,
          "cost": 120.0,
          "payment": "CashPayment",
          "done": true,
@@ -309,3 +309,4 @@ cash payment Successfull
          "date": "2022-12-31T21:40:03.674+00:00"
         }
 ```
+display all customer Transactions
