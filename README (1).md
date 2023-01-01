@@ -223,7 +223,7 @@ request refund on transaction with given id(used by customer)
 To run tests, u need to run the project in your IDE, then test using Postman
 ## Usage/Examples
 
-here is an example on how a customer can choose a service and pays for it :)
+here is an example on how a customer can choose a service and pay for it :)
 
 
 ```http
@@ -261,7 +261,11 @@ Display all Services
     }
 
     output
-       Form
+       {
+         "date": null,
+         "payment": 0.0,
+         "phoneNumber": null
+       }
 ```
 an empty form will be created
 
