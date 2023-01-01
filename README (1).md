@@ -1,18 +1,21 @@
 
-# Fawran Web Service
+## Fawran Web Service
 
 Fawran is wev service that offers many services & provides easy ways to pay, from a push of a button to paying in cash.
 
 
-the following GitHub link will contain the Repository where our project will be
+
 
 
 ## 🔗 Links
+the following GitHub link will contain the Repository where our project will be
 [![GitHub Repository](https://github.com/gamdeeen/FawranWebService)](https://github.com/gamdeeen/FawranWebService)
 
+the collection access key for our postman collection
 [![Postman Collection](https://api.postman.com/collections/24965959-63c8a5e4-cd13-48f3-917c-e72b68322151?access_key=PMAT-01GNJCHQNWKTQQACG208B9DWX6)](https://api.postman.com/collections/24965959-63c8a5e4-cd13-48f3-917c-e72b68322151?access_key=PMAT-01GNJCHQNWKTQQACG208B9DWX6)
 
-
+Postman Public Workspace
+[![Postman Public Workspace](https://elements.getpostman.com/redirect?entityId=24965959-63c8a5e4-cd13-48f3-917c-e72b68322151&entityType=collection)](https://elements.getpostman.com/redirect?entityId=24965959-63c8a5e4-cd13-48f3-917c-e72b68322151&entityType=collection)
 
 ## Installation
 
