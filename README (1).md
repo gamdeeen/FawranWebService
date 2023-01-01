@@ -36,8 +36,7 @@ This project could be used by:
 
 #### Login
 ```http
-  POST 
-  {{LocalHost}}/Authentication/Login
+  POST {{LocalHost}}/Authentication/Login
 ```
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
