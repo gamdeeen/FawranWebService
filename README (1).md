@@ -10,6 +10,8 @@ the following GitHub link will contain the Repository where our project will be
 ## 🔗 Links
 [![GitHub Repository](https://github.com/gamdeeen/FawranWebService)](https://github.com/gamdeeen/FawranWebService)
 
+[![Postman Collection](https://api.postman.com/collections/24965959-63c8a5e4-cd13-48f3-917c-e72b68322151?access_key=PMAT-01GNJCHQNWKTQQACG208B9DWX6)](https://api.postman.com/collections/24965959-63c8a5e4-cd13-48f3-917c-e72b68322151?access_key=PMAT-01GNJCHQNWKTQQACG208B9DWX6)
+
 
 
 ## Installation
